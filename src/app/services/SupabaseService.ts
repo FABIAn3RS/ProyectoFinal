@@ -117,7 +117,7 @@ export class SupabaseService {
   async resetPassword(email: string) {
     const { data, error } = await this.supabase.auth.resetPasswordForEmail(email, {
       // Esta es la página de tu app donde el usuario elegirá su nueva clave
-      redirectTo: 'http://localhost:4200/actualizar-password',
+      redirectTo: 'http://localhost:4200/Reset',
     });
     if (error) throw error;
     return data;
@@ -125,15 +125,11 @@ export class SupabaseService {
 
 
   async updatePassword(newPassword: string) {
-    const { data, error } = await this.supabase.auth.updateUser({
+    // Retornamos la respuesta completa (con data y error)
+    return await this.supabase.auth.updateUser({
       password: newPassword
     });
-
-    if (error) throw error;
-    return data;
-
   }
-
 
 
 

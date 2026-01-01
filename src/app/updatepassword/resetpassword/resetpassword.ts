@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { SupabaseService } from '../../services/SupabaseService';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './resetpassword.html',
   styleUrl: './resetpassword.css',
 })
-export class Resetpassword {
+export class Resetpassword implements OnInit {
 
 
   constructor(private router: Router, private supa: SupabaseService) { }
@@ -33,7 +33,7 @@ export class Resetpassword {
     this.supa.isAuthenticated().then(isAuth => {
       if (!isAuth) {
         alert("Enlace inválido o expirado. Por favor, solicita uno nuevo.");
-        this.router.navigate(['/recuperar']); // Lo mandas de vuelta al inicio
+        this.router.navigate(['/Recuperacion']); // Lo mandas de vuelta al inicio
       }
     });
   }
@@ -41,7 +41,22 @@ export class Resetpassword {
   hola() { console.log("hola") }
 
 
+  async actualizarPassword() {
 
+    // Pequeño truco: esperamos a que la sesión se sincronice
+    try {
+      const { data, error } = await this.supa.updatePassword(this.password());
+
+      if (error) throw error;
+
+      alert("¡Contraseña cambiada!");
+      this.router.navigate(['/']);
+    } catch (error: any) {
+      // Si sigue saliendo Auth session missing aquí, 
+      // es que el enlace del correo no traía el token.
+      alert("Error: " + error.message);
+    }
+  }
 
 }
 
