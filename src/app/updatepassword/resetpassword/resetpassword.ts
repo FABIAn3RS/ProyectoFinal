@@ -1,12 +1,12 @@
 import { Component, signal, computed, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { SupabaseService } from '../../services/SupabaseService';
 import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-resetpassword',
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule],
   templateUrl: './resetpassword.html',
   styleUrl: './resetpassword.css',
 })
