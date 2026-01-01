@@ -1,7 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navegacion } from './navegacion/navegacion';
 import { Footer } from './footer/footer';
+import { inject } from '@vercel/analytics';
+import { injectSpeedInsights } from '@vercel/speed-insights';
+
 
 @Component({
   selector: 'app-root',
@@ -13,8 +16,19 @@ import { Footer } from './footer/footer';
 
 
 
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('VER0.5');
+
+
+  ngOnInit() {
+    // Inicializa Analytics
+    inject();
+
+    // Inicializa Speed Insights
+    injectSpeedInsights();
+  }
+
+
 
 
 
