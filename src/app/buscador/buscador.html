@@ -1,0 +1,46 @@
+<div id="central">
+
+
+    <H3>Buscar Articulo</H3>
+
+    <input [(ngModel)]="criterio_busqueda" type="text" id="inpbuscador" placeholder="Ingrese un Articulo"
+        maxlength="80">
+
+    <select name="cuadro de categoria" id="CategoriaC" (change)="selectcategoria.set(selectCat.value)" #selectCat>
+
+        @for (item of categorias; track $index) {
+
+        <option value="{{item}}">{{item}}</option>
+
+        }
+
+
+    </select>
+
+
+    <h3>{{criterio_busqueda()}}</h3>
+
+
+
+    <div class="cont-padre">
+        @for (revista of resultado(); track revista.id) {
+        <a routerLink="/revista/{{revista?.id}}">
+            <div class="cont-revistas">
+                <li>
+                    <img [src]=" bucketurl + revista?.id + '.jpg'" alt="">
+                    <p></p>
+                    <strong>{{ revista?.titulo }}</strong> - {{ revista.autor }}
+                    <p>{{revista?.categoria}}</p>
+                </li>
+            </div>
+        </a>
+        } @empty {
+        <p>Sin resultados...</p>
+        }
+    </div>
+
+
+
+
+
+</div>

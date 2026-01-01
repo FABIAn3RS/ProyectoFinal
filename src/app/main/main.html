@@ -1,0 +1,118 @@
+<div id="central">
+
+    <!-- CONTENEDOR PRINCIPAL DE DESPLAZAMIENTO -->
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h2> Todo el conocimiento que necesites disponible al instante</h2>
+    <p>Disponemos de un amplio catalogo de las revistas cientificas mas importantes actualizadas en todo momento
+    </p>
+
+    <button class="botones"><a href="/buscador">Descubrir</a></button>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- CONTENEDOR DE ULTIMOS ARTICULOS -->
+
+    <div name="ultimosarticulos" W>
+
+        <h2>Ultimos articulos agregados</h2>
+        <br size="10">
+
+
+
+
+        <div class="cont-padre">
+            @for (revista of articles(); track revista.id) {
+            <a routerLink="/revista/{{revista?.id}}">
+                <div class="cont-revistas">
+                    <li>
+                        <img [src]="bucketimgurl + revista?.id + '.jpg'" alt="">
+                        <p></p>
+                        <strong>{{ revista?.titulo }}</strong> - {{ revista.autor }}
+                        <p>{{revista?.categoria}}</p>
+                    </li>
+                </div>
+            </a>
+            } @empty {
+            <p>cargando...</p>
+            }
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- CONTENEDOR DE ENVIO DE ARTICULOS -->
+
+    <div name="envioarticulo">
+
+        <h2>¿Quieres publicar tu articulo?</h2>
+        <h5>Paso1</h5>
+        <p>Envianos tu documento bien redactado a la seccion de Enviar Articulo</p>
+        <h5>Paso2</h5>
+        <p>Espera la revision de nuestro equipo editorial</p>
+        <h5>Paso3</h5>
+        <p>Una vez aprobado, tu articulo sera publicado en nuestra plataforma</p>
+
+        <button class="botones">
+            <a id="botondeenviar" href="EnvioArt.html">Enviar Ahora</a>
+        </button>
+        <br><br><br><br>
+        <img id="magazine-img" [src]="bucketimgurl + 'Magazine_.png'" alt="">
+
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- CONTENEDOR DE ARTICULOS POPULARES -->
+
+
+
+    <h2>Revistas Populares</h2>
+
+    <div class="cont-padre">
+
+        @for (revista of poparticles(); track revista.id) {
+
+        <a routerLink="revista/{{revista?.id}}">
+            <div class="cont-revistas">
+                <li>
+                    <img [src]="bucketimgurl + revista?.id + '.jpg'" alt="">
+                    <p></p>
+                    <strong>{{ revista?.titulo }}</strong> - {{ revista.autor }}
+                    <p>{{revista?.categoria}}</p>
+                </li>
+            </div>
+        </a>
+        } @empty {
+        <p>cargando...</p>
+        }
+
+    </div>
+</div>

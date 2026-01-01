@@ -1,0 +1,17 @@
+<form (ngSubmit)="Envioform()">
+
+    <h2>Email</h2>
+    <input [(ngModel)]="email" type="email" name="emaillogin">
+    <h2>Contraseña</h2>
+    <input [(ngModel)]="password" type="password" name="passlogin" id="" minlength="6">
+
+
+    <button type="submit" [disabled]="!formularioValido()">Registro</button>
+
+
+
+</form>
+
+<a routerLink="/Registro">Registro</a>
+<br>
+<a routerLink="/Recuperacion">Ha olvidado su contraseña?</a>

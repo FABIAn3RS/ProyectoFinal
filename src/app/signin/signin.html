@@ -1,0 +1,53 @@
+@if(formularioValido()){
+<h1 style="color: blue;">FORMULARIO ES VALIDO</h1>
+}@else {
+<h2>Complete el Registro </h2>
+}
+
+<form (ngSubmit)="registrarUsuario()">
+
+    <h2>Email</h2>
+    <input [(ngModel)]="email" type="email" name="email">
+    @if (emailValido()) {
+    <p class="exito">El e-mail esta correcto</p>
+    }@else if (!emailValido()) {
+    <p> El email tiene que tener @ y un dominio valido</p>
+    }
+
+
+
+    <h2>Contraseña</h2>
+    <input [(ngModel)]="password" type="password" name="pass" id="" minlength="6">
+    @if (passwordValido()) {
+    <p class="exito">La constrseña esta bien</p>
+    }@else if (!passwordValido()) {
+    <p> minimo 6 caracteres</p>
+    }
+
+
+
+    <h2>Confirmar Contraseña</h2>
+    <input [(ngModel)]="passwordconf" type="password" name="passconf" id="" minlength="6">
+    @if (!passwordconfirm()) {
+    <p class="error">La constraseña no coinciden</p>
+    }
+
+
+    <h2> Nombre Completo</h2>
+    <input [(ngModel)]="nombreCompleto" type="text" name="nombre" id="">
+
+
+    <h2> Universidad</h2>
+    <input [(ngModel)]="universidad" type="text" name="uni">
+
+    <br>
+    <br>
+
+
+    <button type="submit" [disabled]="!formularioValido()">Registro</button>
+
+
+
+</form>
+
+<a routerLink="/login">Regresar</a>

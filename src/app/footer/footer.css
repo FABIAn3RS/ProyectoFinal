@@ -1,0 +1,87 @@
+.main-footer {
+    background-color: #1a2a6c;
+    /* El mismo azul de la barra de navegación */
+    color: #ffffff;
+    padding: 3rem 10% 1.5rem 10%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* Sección de la marca */
+.brand-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.divider {
+    width: 50px;
+    height: 4px;
+    background-color: #007bff;
+    /* Azul vibrante para resaltar */
+    margin-top: 10px;
+}
+
+/* Sección de contacto */
+.footer-info h5 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #a0c4ff;
+    /* Azul claro para el título */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-info p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+.footer-info a {
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.footer-info a:hover {
+    border-bottom: 1px solid #007bff;
+}
+
+.email-label {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Línea inferior de copyright */
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.85rem;
+    color: #b0b0b0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .divider {
+        margin: 10px auto;
+    }
+}
