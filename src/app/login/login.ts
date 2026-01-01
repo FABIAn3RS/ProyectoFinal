@@ -45,7 +45,7 @@ export class Login {
 
       // Si llegamos aquí, el usuario es válido
       console.log('Usuario verificado:', res.user);
-      this.router.navigate(['/buscar']); // Lo mandamos al buscador
+      this.router.navigate(['/']); // Lo mandamos al buscador
 
     } catch (error: any) {
       // Si el correo no existe o la contraseña es incorrecta
