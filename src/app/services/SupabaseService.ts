@@ -9,6 +9,8 @@ import { DBacces } from '../constantes/DBacces';
 })
 export class SupabaseService {
 
+
+
   //INYECCION DEL CLIENTE DE SUPABASE
 
   private supabase: SupabaseClient;
@@ -25,11 +27,12 @@ export class SupabaseService {
     );
   }
 
-  // Método para extraer todos los artículos DE UNA TABLA (REVIATAS GENERAL)
+  // Método para extraer todos los artículos DE UNA TABLA (REVIATAS GENERAL) ES EL MAS USADO
   async getRevistas() {
     const { data, error } = await this.supabase
       .from('revistas') // Nombre de tu tabla en Supabase
-      .select('*');      // Extraer todas las columnas
+      .select('*')
+      .eq('status', 'APR');      // Extraer todas las columnas
 
     if (error) {
       console.error('Error al extraer datos:', error);
@@ -43,7 +46,8 @@ export class SupabaseService {
   async getnewrevistas() {
     const { data, error } = await this.supabase
       .from('revistas') // Nombre de tu tabla en Supabase
-      .select('*')     // Extraer todas las columnas
+      .select('*')
+      .eq('status', 'APR')     // Extraer todas las columnas
       .order('fecha', { ascending: false });
 
     if (error) {
@@ -114,9 +118,12 @@ export class SupabaseService {
     return data;
   }
   async resetPassword(email: string) {
+
+    const origin = window.location.origin;
+
     const { data, error } = await this.supabase.auth.resetPasswordForEmail(email, {
       // Esta es la página de tu app donde el usuario elegirá su nueva clave
-      redirectTo: 'http://localhost:4200/Reset',
+      redirectTo: `${origin}/Reset`,
     });
     if (error) throw error;
     return data;
@@ -124,10 +131,28 @@ export class SupabaseService {
 
 
   async updatePassword(newPassword: string) {
+
+
     // Retornamos la respuesta completa (con data y error)
     return await this.supabase.auth.updateUser({
       password: newPassword
     });
+  }
+
+
+  // En SupabaseService.ts
+  async uploadFile(bucket: string, path: string, file: File) {
+    const { data, error } = await this.supabase.storage
+      .from(bucket)
+      .upload(path, file);
+
+    if (error) throw error;
+    return data;
+  }
+
+  // Para obtener la URL pública de la imagen
+  getPublicUrl(bucket: string, path: string) {
+    return this.supabase.storage.from(bucket).getPublicUrl(path).data.publicUrl;
   }
 
 

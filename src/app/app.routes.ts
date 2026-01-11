@@ -22,6 +22,6 @@ export const routes: Routes = [
     { path: "Perfil", component: Perfil, canActivate: [authGuard] },
     { path: "Registro", component: Signin },
     { path: "Recuperacion", component: Updatepassword },
-    { path: "Reset", component: Resetpassword }
+    { path: "Reset", component: Resetpassword },
 
 ];

@@ -1,1 +1,49 @@
-<p>envio works!</p>
+<h2>Enviar Artículo</h2>
+
+<form (ngSubmit)="enviarArticulo()">
+
+    <label>Título del Artículo:</label>
+    <input type="text" [(ngModel)]="titulo" name="titulo" required>
+
+    <br>
+
+    <label>Autor(es):</label>
+    <input type="text" [(ngModel)]="autor" name="autor" required>
+
+    <br>
+
+    <label>Categoría:</label>
+    <select [(ngModel)]="categoria" name="categoria" required>
+        <option value="">Seleccione una categoría</option>
+        <option value="Ciencia">Ciencia</option>
+        <option value="Tecnología">Tecnología</option>
+        <option value="Arte">Arte</option>
+        <option value="Salud">Salud</option>
+        <option value="Historia">Historia</option>
+        <option value="Literatura">Literatura</option>
+        <option value="Sociales">Sociales</option>
+
+    </select>
+
+    <br>
+
+    <label>Resumen:</label>
+    <textarea [(ngModel)]="resumen" name="resumen" rows="4"></textarea>
+
+    <hr>
+
+    <label>Subir Archivo (PDF):</label>
+    <input type="file" (change)="onFileSelected($event, 'pdf')" accept=".pdf" required>
+
+    <br>
+
+    <label>Subir Portada (Imagen):</label>
+    <input type="file" (change)="onFileSelected($event, 'img')" accept="image/*" required>
+
+    <br><br>
+
+    <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Enviando...' : 'Enviar Artículo' }}
+    </button>
+
+</form>

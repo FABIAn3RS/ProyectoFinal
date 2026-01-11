@@ -10,5 +10,8 @@ export class DBacces {
 
     static suprabaseconteinerimg = "https://btffkxekeoepfgqwvvbw.supabase.co/storage/v1/object/public/base1/assets/"
 
+    //bucket de archivos PDF de las revistas
+
+    static suprabaseconteinerpdf = "https://btffkxekeoepfgqwvvbw.supabase.co/storage/v1/object/public/PDF/BASE/"
 
 }
