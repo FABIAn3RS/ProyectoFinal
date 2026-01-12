@@ -38,6 +38,10 @@ export class Envio {
   async enviarArticulo() {
     if (!this.filePDF || !this.filePortada) return alert("Sube ambos archivos");
 
+    if (await this.supa.checkUserSubmissionLimit()) return;
+
+
+
     this.loading.set(true);
     try {
 

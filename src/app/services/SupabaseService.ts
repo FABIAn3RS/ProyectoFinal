@@ -176,5 +176,38 @@ export class SupabaseService {
 
 
   }
+
+  async checkUserSubmissionLimit(): Promise<boolean> {
+    // 1. Obtener el usuario actual
+    const { data: { user } } = await this.supabase.auth.getUser();
+
+    if (!user) {
+      alert("Debes iniciar sesión");
+      return true; // Bloqueamos si no hay usuario
+    }
+
+    // 2. Consultar SOLO el perfil de este usuario
+    const { data: perfil, error } = await this.supabase
+      .from('perfiles')
+      .select('upload_permission')
+      .eq('id', user.id) // Filtramos por su ID directamente
+      .single(); // Traemos solo un objeto, no un array
+
+    if (error || !perfil) {
+      console.error("Error al obtener perfil", error);
+      return true;
+    }
+
+    // 3. Evaluar el permiso (asumiendo que upload_permission es booleano)
+    if (perfil.upload_permission === true) {
+      return false; // NO está limitado (puede subir)
+    } else {
+      alert("Ya tienes un artículo en revisión. Debes esperar a que sea procesado.");
+      return true; // SÍ está limitado (no puede subir)
+    }
+  }
+
+
+
 }
 
