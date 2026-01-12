@@ -40,16 +40,36 @@ export class Envio {
 
     this.loading.set(true);
     try {
-      // 1. Subir PDF a Supabase Storage
-      // 2. Subir Portada a Supabase Storage
-      // 3. Guardar datos en la tabla 'revistas'
-      //4. Desactivar el envio de formulario hasta que se complete el proceso de revision
+
+      //se crea el objeto con los datos a enviar
+
+      const revistaData = {
+        titulo: this.titulo(),
+        autor: this.autor(),
+        universidad: this.universidad(),
+        categoria: this.categoria(),
+        resumen: this.resumen(),
+        fecha: new Date().toISOString(),
+        status: 'REV'
+      };
+
+      // Guardar datos en la tabla 'revistas' y obtener el id generado, no se usa el id pero esta por si acaso
+
+
+      const { idFinal, nombrepdf, nombreimg } = await this.supa.insertRevista(revistaData);
+
+      //luego se ejecuta una funcion para subir los archivos
+
+      await this.supa.insertIMGandPDF(nombrepdf, nombreimg, this.filePortada, this.filePDF);
+
+
 
       console.log("Enviando:", this.titulo(), this.filePDF.name, this.filePortada.name, this.autor(),
         this.universidad(), this.categoria(), this.resumen());
       alert("¡Artículo enviado con éxito!");
 
     } catch (error) {
+      console.error("Error al enviar el artículo:", error);
       alert("Error al enviar");
     } finally {
       this.loading.set(false);

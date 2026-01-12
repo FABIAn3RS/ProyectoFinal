@@ -8,10 +8,14 @@ export class DBacces {
 
     //bucket de imagenes pequeñas para las portadas de las revistas
 
-    static suprabaseconteinerimg = "https://btffkxekeoepfgqwvvbw.supabase.co/storage/v1/object/public/base1/assets/"
+    static suprabaseconteinerimg = "https://btffkxekeoepfgqwvvbw.supabase.co/storage/v1/object/public/base1/"
 
     //bucket de archivos PDF de las revistas
 
-    static suprabaseconteinerpdf = "https://btffkxekeoepfgqwvvbw.supabase.co/storage/v1/object/public/PDF/BASE/"
+    static suprabaseconteinerpdf = "https://btffkxekeoepfgqwvvbw.supabase.co/storage/v1/object/public/PDF/"
+
+
+    static bucketNameImg = 'base1';
+    static bucketNamePdf = 'PDF';
 
 }

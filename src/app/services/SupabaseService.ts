@@ -18,6 +18,9 @@ export class SupabaseService {
 
   private supabaseUrl = DBacces.supabaseUrl;
   private supabaseKey = DBacces.supabaseKey;
+  private supabasebucketimagenes = DBacces.bucketNameImg;
+  private supabasebucketpdf = DBacces.bucketNamePdf;
+
 
   constructor() {
     // Sustituye con tus credenciales reales
@@ -32,7 +35,7 @@ export class SupabaseService {
     const { data, error } = await this.supabase
       .from('revistas') // Nombre de tu tabla en Supabase
       .select('*')
-      .eq('status', 'APR');      // Extraer todas las columnas
+      .eq('status', 'APR');      // Extraer todas las columnas aprobadas
 
     if (error) {
       console.error('Error al extraer datos:', error);
@@ -47,7 +50,7 @@ export class SupabaseService {
     const { data, error } = await this.supabase
       .from('revistas') // Nombre de tu tabla en Supabase
       .select('*')
-      .eq('status', 'APR')     // Extraer todas las columnas
+      .eq('status', 'APR')     // Extraer todas las columnas aprobadas
       .order('fecha', { ascending: false });
 
     if (error) {
@@ -140,28 +143,38 @@ export class SupabaseService {
   }
 
 
-  // En SupabaseService.ts
-  async uploadFile(bucket: string, path: string, file: File) {
-    const { data, error } = await this.supabase.storage
-      .from(bucket)
-      .upload(path, file);
+  //guardar revista nueva en la tabla revistas y retornar el id generado para usarlo en el nombre de los archivos
+
+  async insertRevista(revista: any) {
+    const { data: revistasubida, error } = await this.supabase
+      .from('revistas')
+      .insert([revista])
+      .select()
+      .single();
 
     if (error) throw error;
-    return data;
+
+    const idFinal = revistasubida.id;
+
+    const nombrepdf = `${idFinal}.pdf`;
+    const nombreimg = `${idFinal}.jpg`;
+
+    console.log(idFinal, nombrepdf, nombreimg);
+
+    return { idFinal, nombrepdf, nombreimg };
+
+
   }
 
-  // Para obtener la URL pública de la imagen
-  getPublicUrl(bucket: string, path: string) {
-    return this.supabase.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+  //funcion para subir los archivos a supabase storage usando el id generado de INSERT REVISTAS 
+
+  async insertIMGandPDF(nombrepdf: string, nombreimg: string, imagen: File, pdf: File) {
+    const { error: errorPDF } = await this.supabase.storage.from(this.supabasebucketpdf).upload(nombrepdf, pdf);
+    const { error: errorImg } = await this.supabase.storage.from(this.supabasebucketimagenes).upload(nombreimg, imagen);
+    if (errorPDF) throw errorPDF;
+    if (errorImg) throw errorImg;
+
+
   }
-
-
-
-
-
-
-
-
-
 }
 
