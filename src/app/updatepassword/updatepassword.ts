@@ -32,7 +32,7 @@ export class Updatepassword {
   async enviarEnlace() {
     try {
       // Esto envía el correo con el enlace mágico
-      await this.supa.resetPassword(this.email());
+      await this.supa.resetPasswordrequest(this.email());
       alert("Revisa tu bandeja de entrada (y el spam)");
     } catch (error: any) {
       alert("Error: " + error.message);

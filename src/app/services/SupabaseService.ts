@@ -120,7 +120,9 @@ export class SupabaseService {
     if (error) throw error; // Si el usuario no existe o la clave está mal, lanzará el error
     return data;
   }
-  async resetPassword(email: string) {
+
+
+  async resetPasswordrequest(email: string) {
 
     const origin = window.location.origin;
 

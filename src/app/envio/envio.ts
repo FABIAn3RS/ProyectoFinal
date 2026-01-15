@@ -36,14 +36,17 @@ export class Envio {
   }
 
   async enviarArticulo() {
-    if (!this.filePDF || !this.filePortada) return alert("Sube ambos archivos");
-
-    if (await this.supa.checkUserSubmissionLimit()) return;
-
 
 
     this.loading.set(true);
+
+
     try {
+
+      if (!this.filePDF || !this.filePortada) return alert("Sube ambos archivos");
+
+      if (await this.supa.checkUserSubmissionLimit()) return;
+
 
       //se crea el objeto con los datos a enviar
 
@@ -75,6 +78,8 @@ export class Envio {
     } catch (error) {
       console.error("Error al enviar el artículo:", error);
       alert("Error al enviar");
+      this.loading.set(false);
+
     } finally {
       this.loading.set(false);
     }
