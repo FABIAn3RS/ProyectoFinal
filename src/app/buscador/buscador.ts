@@ -25,7 +25,7 @@ export class Buscador {
 
   bucketurl = DBacces.suprabaseconteinerimg
 
-  categorias = ["", "Ciencia", "Sociales", "Teconología",
+  categorias = ["", "Ciencia", "Sociales", "Tecnología",
     "Arte", "Salud", "Historia", "Literatura"]
 
   selectcategoria = signal("")
@@ -57,19 +57,23 @@ export class Buscador {
     const categoria = this.selectcategoria().toLowerCase().trim()
 
 
-    if (categoria == "") {
+    if (!categoria) {
 
       const terminado = listacompleta.filter(revista => revista.titulo.toLowerCase().trim().includes(termino))
 
       return terminado
 
-    } else if (categoria != "") {
+    } else if (categoria) {
 
       if (termino) {
 
         const terminado = listacompleta.filter(revista => revista.titulo.toLowerCase().trim().includes(termino))
         const cataplicada = terminado.filter(revistat => revistat.categoria.toLowerCase().trim().includes(categoria))
+
+        console.log(categoria)
+        console.log(cataplicada)
         return cataplicada
+
 
 
       } else {
