@@ -37,10 +37,10 @@ export class Main implements OnInit {
 
     //aqui se asignan los metodos para extraer las revistas
 
-    const nuevos = await this.supabaseService.getnewrevistas();
+    const nuevos = await this.supabaseService.getnewrevistaslimit();
 
     //se cambia la funcion Para otra tabla
-    const populares = await this.supabaseService.getRevistas();
+    const populares = await this.supabaseService.getRevistaslimit();
 
     this.articles.set(nuevos);
     this.poparticles.set(populares);

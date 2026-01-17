@@ -35,6 +35,19 @@ export class Envio {
     else this.filePortada = file;
   }
 
+  camposcompletos = computed(() => {
+
+    if (this.titulo() && this.autor() && this.categoria() && this.universidad() && this.resumen()) {
+
+      return true
+    }
+
+    return false
+
+
+
+  })
+
   async enviarArticulo() {
 
 
@@ -45,6 +58,8 @@ export class Envio {
 
 
     try {
+
+      if (!this.camposcompletos()) return alert("Completa los campos")
 
       if (!this.filePDF || !this.filePortada) return alert("Sube ambos archivos");
 
@@ -60,7 +75,7 @@ export class Envio {
         categoria: this.categoria(),
         resumen: this.resumen(),
         fecha: new Date().toISOString(),
-        status: 'REV'
+        status: 'APR'
       };
 
       // Guardar datos en la tabla 'revistas' y obtener el id generado, no se usa el id pero esta por si acaso

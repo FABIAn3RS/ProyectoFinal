@@ -4,121 +4,124 @@
 
 <button (click)="seccion.set('APROBADAS')" [disabled]="pausebuttom()">Seleccionar Aprobadas</button>
 <button (click)="seccion.set('REVISION')" [disabled]="pausebuttom()">Seleccionar Revisión</button>
+<button (click)="ngOnInit()" [disabled]="pausebuttom()">Actualizar</button>
+
+
+
+@if (seccion()=="APROBADAS") {
 
 <div class="cont-aprob">
 
-    @if (seccion()=="APROBADAS") {
-
-    <h2>Aprobadas</h2>
-
-    @for (revista of revistasFiltradasporidapr(); track revista.id) {
+    <h2>APROBADOS</h2>
 
     <div class="cont-revistas">
 
-        <a routerLink="/revista/{{revista?.id}}">
 
-            <div>
-                <p>{{ revista?.titulo }}</p>
-            </div>
-            <div>
-                <p>{{ revista.autor }}</p>
-            </div>
-            <div>
-                <p>{{revista?.categoria}}</p>
+        <table>
+            <tr>
+                <td>Titulo</td>
+                <td>Autor</td>
+                <td>Universidad</td>
+                <td>Categoria</td>
+                <td>Fecha</td>
+                <td>ID</td>
+                <td>User_ID</td>
+                <td>Portada</td>
+                <td>Archivo</td>
+            </tr>
 
-            </div>
-            <div>
-                <p>{{revista.universidad}}</p>
-            </div>
-            <div>
-                <p>{{revista?.fecha}}</p>
-            </div>
-            <div>
-                <p>{{revista?.id}}</p>
-            </div>
-            <div>
-            </div>
-            <div>
+            @for (revistas of revistasFiltradasporidapr(); track revistas.id) {
+
+            <tr>
+                <td>{{revistas?.titulo}}</td>
+                <td>{{revistas?.autor}}</td>
+                <td>{{revistas?.universidad}}</td>
+                <td>{{revistas?.categoria}}</td>
+                <td>{{revistas?.fecha}}</td>
+                <td>{{revistas?.id}}</td>
+                <td>{{revistas?.user_id}}</td>
+                <td> <a [href]="linkPDFApr+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
+                <td> <a [href]="LinkIMGApr+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
+                <button (click)='eliminarRevista(revistas?.id)' [disabled]="pausebuttom()">Eliminar</button>
+            </tr>
 
 
-            </div>
-        </a>
-        <div>
-            <a class="botonopcion" [href]="linkPDFApr+revista?.id+'.pdf'" target="_blank">pdf</a>
-        </div>
-        <div>
-            <a class="botonopcion" [href]="LinkIMGApr+revista?.id+'.jpg'" target="_blank">IMG</a>
-        </div>
-        <div>
-            <button (click)="eliminarRevista(revista?.id)" [disabled]="pausebuttom()">Eliminar</button>
 
-        </div>
+
+
+
+            } @empty {
+
+            <p>no hay revistas ....</p>}
+
+        </table>
+
     </div>
-    } @empty {
-    <p>cargando...</p>
-    }
-    }
 
 </div>
 
+}
 
 
+
+
+@if (seccion()=="REVISION") {
 
 <div class="cont-rev">
 
-    @if (seccion()=="REVISION") {
-
     <h2>En Revisión</h2>
 
-    @for (revista of revistasFiltradasporidrev(); track revista.id) {
     <div class="cont-revistas">
-        <a routerLink="/revista/{{revista?.id}}">
+        <table>
+            <tr>
+                <td>Titulo</td>
+                <td>Autor</td>
+                <td>Universidad</td>
+                <td>Categoria</td>
+                <td>Fecha</td>
+                <td>ID</td>
+                <td>User_ID</td>
+                <td>Portada</td>
+                <td>Archivo</td>
+            </tr>
 
-            <div>
-                <p>{{ revista?.titulo }}</p>
-            </div>
-            <div>
-                <p>{{ revista.autor }}</p>
+            @for (revistas of revistasFiltradasporidrev(); track revistas.id) {
 
-            </div>
-            <div>
-                <p>{{revista?.categoria}}</p>
-            </div>
-            <div>
-                <p>{{revista.universidad}}</p>
-            </div>
-            <div>
-                <p>{{revista?.fecha}}</p>
+            <tr>
+                <td>{{revistas?.titulo}}</td>
+                <td>{{revistas?.autor}}</td>
+                <td>{{revistas?.universidad}}</td>
+                <td>{{revistas?.categoria}}</td>
+                <td>{{revistas?.fecha}}</td>
+                <td>{{revistas?.id}}</td>
+                <td>{{revistas?.user_id}}</td>
+                <td> <a [href]="linkPDFrevision+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
+                <td> <a [href]="LinkIMGrevision+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
 
-            </div>
-            <div>
-                <p>{{revista?.id}}</p>
+                <button (click)="APRREVISTA(revistas?.id,revistas?.user_id)" [disabled]="pausebuttom()">Aprobar</button>
+                <button (click)="RECHAZARREVISTA(revistas?.id,revistas?.user_id)"
+                    [disabled]="pausebuttom()">Rechazar</button>
+            </tr>
 
-            </div>
-            <div>
-                <p>{{revista?.status}}</p>
+            }
 
-            </div>
-        </a>
-        <div>
-            <a class="botonopcion" [href]="linkPDFrevision+revista?.id+'.pdf'" target="_blank">pdf</a>
-        </div>
-        <div>
-            <a class="botonopcion" [href]="LinkIMGrevision+revista?.id+'.jpg'" target="_blank">IMG</a>
+            @empty {
 
-        </div>
-        <div>
+            <p>no hay revistas pendientes....</p>}
 
-            <button (click)="APRREVISTA(revista?.id, revista?.user_id)" [disabled]="pausebuttom()">Aprobar</button>
-            <button (click)="RECHAZARREVISTA(revista?.id, revista?.user_id)"
-                [disabled]="pausebuttom()">Rechazar</button>
-        </div>
+        </table>
+
+
+
+
+
+
     </div>
-    } @empty {
-    <p>No hay revistas en revisión...</p>
-    }
 
-    }
+
+
 
 
 </div>
+
+}

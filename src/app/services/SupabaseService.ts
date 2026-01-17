@@ -31,13 +31,27 @@ export class SupabaseService {
     );
   }
 
-  // Método para extraer todos los artículos DE UNA TABLA (REVIATAS GENERAL) ES EL MAS USADO
+  // Método para extraer todos los artículos DE UNA TABLA (REVIATAS GENERAL) ES EL MAS USADO esta limitado a 5
   async getRevistas() {
     const { data, error } = await this.supabase
       .from('revistas') // Nombre de tu tabla en Supabase
       .select('*')
-      .eq('status', 'APR');      // Extraer todas las columnas aprobadas
+      .eq('status', 'APR')  // Extraer todas las columnas aprobadas
+      .order('fecha', { ascending: true })
+    if (error) {
+      console.error('Error al extraer datos:', error);
+      return [];
+    }
+    return data;
+  }
 
+  async getRevistaslimit() {
+    const { data, error } = await this.supabase
+      .from('revistas') // Nombre de tu tabla en Supabase
+      .select('*')
+      .eq('status', 'APR')  // Extraer todas las columnas aprobadas
+      .order('fecha', { ascending: true })
+      .limit(5);
     if (error) {
       console.error('Error al extraer datos:', error);
       return [];
@@ -68,6 +82,20 @@ export class SupabaseService {
       .select('*')
       .eq('status', 'APR')     // Extraer todas las columnas aprobadas
       .order('fecha', { ascending: false });
+
+    if (error) {
+      console.error('Error al extraer datos:', error);
+      return [];
+    }
+    return data;
+  }
+
+  async getnewrevistaslimit() {
+    const { data, error } = await this.supabase
+      .from('revistas') // Nombre de tu tabla en Supabase
+      .select('*')
+      .eq('status', 'APR')     // Extraer todas las columnas aprobadas
+      .limit(5);
 
     if (error) {
       console.error('Error al extraer datos:', error);

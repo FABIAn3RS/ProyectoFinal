@@ -108,3 +108,96 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+
+/* Estilo para el Selector de Categorías */
+#CategoriaC {
+    padding: 10px 15px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.95rem;
+    color: #475569;
+
+    background-color: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    /* Menos redondeado que la búsqueda para diferenciar */
+
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+
+    /* Para que no se vea tan ancho si no es necesario */
+    min-width: 180px;
+}
+
+/* Efecto al pasar el mouse o seleccionar */
+#CategoriaC:hover {
+    border-color: #cbd5e1;
+}
+
+#CategoriaC:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Estilo para las opciones dentro del select */
+#CategoriaC option {
+    padding: 10px;
+    background-color: #ffffff;
+    color: #1e293b;
+}
+
+
+
+/* Contenedor o estilo directo para el buscador */
+#inpbuscador {
+    width: 100%;
+    max-width: 500px;
+    /* Tamaño ideal para que no ocupe toda la pantalla */
+    padding: 12px 20px;
+    margin: 20px 0;
+
+    /* Tipografía */
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    color: #1e293b;
+
+    /* Fondo y Bordes */
+    background-color: #ffffff;
+    border: 2px solid #e2e8f0;
+    /* Gris muy suave */
+    border-radius: 50px;
+    /* Bordes totalmente redondeados tipo "píldora" */
+
+    /* Sombra sutil */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    /* Transición suave para el foco */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+
+/* Efecto cuando el usuario hace clic (Focus) */
+#inpbuscador:focus {
+    border-color: #3b82f6;
+    /* Azul principal que usamos en los botones */
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+    /* Efecto de levante sutil */
+}
+
+/* Estilo del texto de sugerencia (Placeholder) */
+#inpbuscador::placeholder {
+    color: #94a3b8;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Estilo para que se vea bien en móviles */
+@media (max-width: 600px) {
+    #inpbuscador {
+        max-width: 100%;
+        font-size: 0.9rem;
+    }
+}

@@ -1,159 +1,140 @@
-/* Contenedor General */
-:host {
-    display: block;
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    color: #334155;
-}
+/* --- Estilos para la Tabla --- */
 
-/* Barra de Búsqueda */
-input[type="text"] {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px 20px;
-    margin-bottom: 25px;
-    border: 2px solid #e2e8f0;
-    border-radius: 30px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    display: block;
-}
-
-input[type="text"]:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-}
-
-/* Botones de Selector de Sección */
-button:not([click*="eliminar"]):not([click*="APR"]):not([click*="RECHAZAR"]) {
-    padding: 10px 20px;
-    margin-right: 10px;
-    margin-bottom: 30px;
-    border: 1px solid #e2e8f0;
-    background: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #64748b;
-    transition: all 0.2s;
-}
-
-button:focus {
-    /* Efecto para saber qué sección está activa */
-    background: #3b82f6;
-    color: white;
-    border-color: #3b82f6;
-}
-
-/* Filas de Revistas (cont-revistas) */
 .cont-revistas {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr auto auto auto;
-    align-items: center;
-    gap: 15px;
     background: white;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 12px;
     border: 1px solid #f1f5f9;
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    /* Permite scroll horizontal en móviles */
+    display: block;
+    /* Sobreescribe el grid anterior si era necesario */
 }
 
-.cont-revistas:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border-color: #cbd5e1;
-}
-
-/* Enlaces dentro de la fila */
-.cont-revistas a {
-    text-decoration: none;
-    color: inherit;
-    display: contents;
-    /* Hace que el routerLink no rompa el grid */
-}
-
-.cont-revistas p {
-    margin: 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Elimina espacios entre celdas */
+    text-align: left;
     font-size: 0.9rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-/* Títulos de las columnas */
-.cont-revistas div p:first-child {
-    font-weight: 500;
-}
-
-/* Links de PDF e Imagen */
-a[target="_blank"] {
-    font-size: 0.8rem;
-    font-weight: bold;
+/* Encabezados (La primera fila) */
+tr:first-child {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-weight: 700;
     text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: middle;
+}
+
+/* Efecto hover en las filas de datos */
+tr:not(:first-child):hover {
+    background-color: #f1f5f9;
+    transition: background-color 0.2s ease;
+}
+
+/* Estilo para los IDs y User_IDs (más pequeños y grises) */
+td:nth-child(6),
+td:nth-child(7) {
+    font-family: monospace;
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+/* --- Botones y Enlaces dentro de la tabla --- */
+
+/* Enlaces PDF e IMG */
+a[target="_blank"] {
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: bold;
     color: #3b82f6;
-    padding: 5px 10px;
+    padding: 4px 8px;
     background: #eff6ff;
-    border-radius: 5px;
+    border-radius: 4px;
+    display: inline-block;
 }
 
 a[target="_blank"]:hover {
     background: #dbeafe;
 }
 
-/* Botones de Acción (Aprobar, Rechazar, Eliminar) */
-.cont-revistas button {
-    padding: 8px 12px;
+/* Botones de acción */
+button {
+    padding: 6px 12px;
     border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-size: 0.75rem;
+    font-weight: 600;
     border: none;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: all 0.2s ease;
+    margin: 2px;
 }
 
-.botonopcion {
-
-    border-color: #3b82f6;
-    color: #10b981;
-
-
-
-}
-
-/* Colores de Acciones */
-button[click*="APR"] {
-    background: #10b981;
-    color: white;
-}
-
-button[click*="RECHAZAR"] {
-    background: #f59e0b;
-    color: white;
-}
-
+/* Colores específicos según el texto del botón (basado en tus funciones) */
 button[click*="eliminar"] {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+button[click*="eliminar"]:hover {
     background: #ef4444;
     color: white;
 }
 
-button:hover:not(:disabled) {
-    opacity: 0.8;
+button[click*="APR"] {
+    background: #dcfce7;
+    color: #16a34a;
 }
 
-button:disabled {
-    background: #cbd5e1;
-    cursor: not-allowed;
+button[click*="APR"]:hover {
+    background: #16a34a;
+    color: white;
+}
+
+button[click*="RECHAZAR"] {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+button[click*="RECHAZAR"]:hover {
+    background: #d97706;
+    color: white;
+}
+
+/* Botones de navegación (Aprobadas/Revisión) */
+/* Estos están fuera de la tabla, mantenemos tu estilo original con una mejora */
+button:not([click*="eliminar"]):not([click*="APR"]):not([click*="RECHAZAR"]):not([click*="ngOnInit"]) {
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* Estilo para el botón Actualizar */
+button[click*="ngOnInit"] {
+    background: #f1f5f9;
+    color: #475569;
 }
 
 /* Títulos de sección */
 h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: #1e293b;
-    margin-bottom: 20px;
-    padding-left: 10px;
+    margin-bottom: 15px;
     border-left: 4px solid #3b82f6;
+    padding-left: 12px;
 }
