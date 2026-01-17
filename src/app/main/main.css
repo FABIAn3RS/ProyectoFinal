@@ -1,72 +1,110 @@
-.cont-revistas img {
+/* Animación de entrada para las cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 
-    width: 100%;
-    height: 400px;
-    /* Tamaño fijo para la imagen */
-    object-fit: cover;
-
-
-}
-
-.cont-revistas {
-
-    width: 100%;
-    /* Deja que el Grid controle el ancho */
-    max-width: 300px;
-    /* Pero que no crezca más de esto */
-    min-height: 400px;
-    /* Altura mínima para que todos se vean parejos */
-
-    display: flex;
-    /* Para alinear el contenido interno */
-    flex-direction: column;
-    /* Apila imagen, título y autor */
-    justify-content: space-between;
-    /* Separa el contenido de forma equitativa */
-
-    border: 1px solid #eee;
-    border-radius: 12px;
-    overflow: hidden;
-    /* Corta lo que se salga del borde redondeado */
-
-
-}
-
-.cont-padre {
-
-    display: grid;
-    /* Crea columnas automáticas de mínimo 250px. Si no caben, saltan abajo. */
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    /* Espacio entre los div */
-    padding: 20px;
-
-
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #central {
-
-    padding: 180px;
+    /* Ajustado para no colapsar en móviles, manteniendo el estilo amplio */
+    padding: 100px 10%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #0c0c0c;
-
+    background-color: #f8f9fa;
+    /* Un fondo sutil para que resalten las sombras */
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+.cont-padre {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    /* Aumentado para que las sombras no se solapen */
+    padding: 20px;
 }
 
+.cont-revistas {
+    width: 100%;
+    max-width: 300px;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* Estética de la Card */
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    overflow: hidden;
+
+    /* Sombra inicial suave */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    /* Transiciones */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    /* Aplicar animación de entrada */
+    animation: fadeInUp 0.6s ease backwards;
+}
+
+/* Efecto Hover en la Revista */
+.cont-revistas:hover {
+    transform: translateY(-8px);
+    /* Sombra más profunda al pasar el mouse */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: #3b82f6;
+    /* Cambio sutil de color de borde */
+}
+
+.cont-revistas img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Zoom suave en la imagen al hacer hover */
+.cont-revistas:hover img {
+    transform: scale(1.05);
+}
+
+.cont-revistas li {
+    padding: 15px;
+    list-style: none;
+}
+
+/* Estilo para los botones */
 .botones {
+    display: inline-block;
     background-color: #1a2a6c;
-    color: rgb(255, 255, 255) !important;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    color: #ffffff !important;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(26, 42, 108, 0.2);
+    transition: all 0.3s ease;
 }
 
 .botones:hover {
-    background-color: #e2e6f3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(39, 29, 29, 0.2);
+    background-color: #2a3d8c;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(26, 42, 108, 0.3);
+}
+
+.botones a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Quitar decoraciones de enlaces */
+a {
+    text-decoration: none;
+    color: inherit;
 }

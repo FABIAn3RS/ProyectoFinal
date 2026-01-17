@@ -43,6 +43,7 @@ export class Resetpassword implements OnInit {
 
   async actualizarPassword() {
 
+
     // Pequeño truco: esperamos a que la sesión se sincronice
     try {
       const { data, error } = await this.supa.updatePassword(this.password());

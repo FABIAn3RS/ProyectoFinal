@@ -7,9 +7,10 @@ import { Envio } from './envio/envio';
 import { Perfil } from './perfil/perfil';
 import { Login } from './login/login';
 import { Signin } from './signin/signin';
-import { authGuard } from './signin/authguard/authguard';
+import { authGuard, authguardAdmin } from './signin/authguard/authguard';
 import { Updatepassword } from './updatepassword/updatepassword';
 import { Resetpassword } from './updatepassword/resetpassword/resetpassword';
+import { Administracion } from './administracion/administracion';
 
 export const routes: Routes = [
 
@@ -23,5 +24,6 @@ export const routes: Routes = [
     { path: "Registro", component: Signin },
     { path: "Recuperacion", component: Updatepassword },
     { path: "Reset", component: Resetpassword },
+    { path: "Admin", component: Administracion, canActivate: [authguardAdmin] },
 
 ];

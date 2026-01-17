@@ -18,3 +18,25 @@ export const authGuard = async () => {
         return router.parseUrl('/login');
     }
 };
+
+export const authguardAdmin = async () => {
+
+    const supabaseService = inject(SupabaseService);
+    const router = inject(Router);
+
+    const isAuth = await supabaseService.isAuthenticated();
+
+    if (isAuth) {
+
+
+        const isadmin = await supabaseService.getUSERISADMIN();
+
+
+        if (isadmin) { return true; }
+
+        else { return router.parseUrl('/'); }
+
+    } else { return router.parseUrl('/login'); }
+
+
+}

@@ -38,6 +38,9 @@ export class Envio {
   async enviarArticulo() {
 
 
+    //esta es la variable que ocntrola el bloqueo del boton para evita clicks accidentale
+
+
     this.loading.set(true);
 
 

@@ -21,6 +21,7 @@ export interface Revistaplantilla {
   fecha: string;
   resumen: string;
   status: string;
+  user_id: string;
 }
 
 

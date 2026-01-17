@@ -1,3 +1,7 @@
+@if (errorLogin()) {
+<h3 style="color:red">Error en el inicio de sesion, compruebe sus credenciales</h3>
+}
+
 <form (ngSubmit)="Envioform()">
 
     <h2>Email</h2>
@@ -5,8 +9,8 @@
     <h2>Contraseña</h2>
     <input [(ngModel)]="password" type="password" name="passlogin" id="" minlength="6">
 
-
-    <button type="submit" [disabled]="!formularioValido()">Registro</button>
+    <br>
+    <button type="submit" [disabled]="!formularioValido()">Iniciar Sesion</button>
 
 
 

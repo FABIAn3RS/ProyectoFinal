@@ -1,0 +1,103 @@
+/* Contenedor Principal */
+:host {
+    display: block;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', system-ui, sans-serif;
+    text-align: center;
+}
+
+/* Bloques de información */
+div {
+    margin-bottom: 25px;
+}
+
+h4 {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 1.4rem;
+    color: #1e293b;
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Mensaje de estado: Tienes un artículo en revisión */
+h2:has(text) {
+    /* Si es el mensaje de permiso */
+    font-size: 1.1rem;
+}
+
+div:has(h2:contains("revision")) {
+    background-color: #fffbeb;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #fef3c7;
+}
+
+/* Estilo específico para el aviso de revisión */
+h2:has-text("revision"),
+.aviso-revision {
+    color: #d97706;
+    background: #fffbeb;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px dashed #fbbf24;
+    font-size: 1rem;
+}
+
+/* Contenedor de botones */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+/* Botón de Admin */
+button[routerLink="/Admin"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #4f46e5;
+    /* Índigo */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button[routerLink="/Admin"]:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* Botón de Logout */
+button:not([routerLink]) {
+    width: 100%;
+    padding: 12px;
+    background-color: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:not([routerLink]):hover {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border-color: #fecaca;
+}

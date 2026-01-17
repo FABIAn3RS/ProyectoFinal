@@ -1,0 +1,159 @@
+/* Contenedor General */
+:host {
+    display: block;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #334155;
+}
+
+/* Barra de Búsqueda */
+input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    margin-bottom: 25px;
+    border: 2px solid #e2e8f0;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+/* Botones de Selector de Sección */
+button:not([click*="eliminar"]):not([click*="APR"]):not([click*="RECHAZAR"]) {
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.2s;
+}
+
+button:focus {
+    /* Efecto para saber qué sección está activa */
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+
+/* Filas de Revistas (cont-revistas) */
+.cont-revistas {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr auto auto auto;
+    align-items: center;
+    gap: 15px;
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #f1f5f9;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cont-revistas:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-color: #cbd5e1;
+}
+
+/* Enlaces dentro de la fila */
+.cont-revistas a {
+    text-decoration: none;
+    color: inherit;
+    display: contents;
+    /* Hace que el routerLink no rompa el grid */
+}
+
+.cont-revistas p {
+    margin: 0;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Títulos de las columnas */
+.cont-revistas div p:first-child {
+    font-weight: 500;
+}
+
+/* Links de PDF e Imagen */
+a[target="_blank"] {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #3b82f6;
+    padding: 5px 10px;
+    background: #eff6ff;
+    border-radius: 5px;
+}
+
+a[target="_blank"]:hover {
+    background: #dbeafe;
+}
+
+/* Botones de Acción (Aprobar, Rechazar, Eliminar) */
+.cont-revistas button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.botonopcion {
+
+    border-color: #3b82f6;
+    color: #10b981;
+
+
+
+}
+
+/* Colores de Acciones */
+button[click*="APR"] {
+    background: #10b981;
+    color: white;
+}
+
+button[click*="RECHAZAR"] {
+    background: #f59e0b;
+    color: white;
+}
+
+button[click*="eliminar"] {
+    background: #ef4444;
+    color: white;
+}
+
+button:hover:not(:disabled) {
+    opacity: 0.8;
+}
+
+button:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+}
+
+/* Títulos de sección */
+h2 {
+    font-size: 1.2rem;
+    color: #1e293b;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid #3b82f6;
+}

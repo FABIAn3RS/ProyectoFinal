@@ -25,7 +25,7 @@ export class Buscador {
 
   bucketurl = DBacces.suprabaseconteinerimg
 
-  categorias = ["", "Ciencia", "Sociales", "Teconologia",
+  categorias = ["", "Ciencia", "Sociales", "Teconología",
     "Arte", "Salud", "Historia", "Literatura"]
 
   selectcategoria = signal("")
@@ -107,7 +107,6 @@ export class Buscador {
 
     this.revistas.set(allelemnts)
 
-    console.log(allelemnts)
 
   }
 }

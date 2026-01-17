@@ -1,1 +1,124 @@
-<p>administracion works!</p>
+<input type="text" placeholder="Buscar artículo..." [(ngModel)]="idrevista" />
+
+
+
+<button (click)="seccion.set('APROBADAS')" [disabled]="pausebuttom()">Seleccionar Aprobadas</button>
+<button (click)="seccion.set('REVISION')" [disabled]="pausebuttom()">Seleccionar Revisión</button>
+
+<div class="cont-aprob">
+
+    @if (seccion()=="APROBADAS") {
+
+    <h2>Aprobadas</h2>
+
+    @for (revista of revistasFiltradasporidapr(); track revista.id) {
+
+    <div class="cont-revistas">
+
+        <a routerLink="/revista/{{revista?.id}}">
+
+            <div>
+                <p>{{ revista?.titulo }}</p>
+            </div>
+            <div>
+                <p>{{ revista.autor }}</p>
+            </div>
+            <div>
+                <p>{{revista?.categoria}}</p>
+
+            </div>
+            <div>
+                <p>{{revista.universidad}}</p>
+            </div>
+            <div>
+                <p>{{revista?.fecha}}</p>
+            </div>
+            <div>
+                <p>{{revista?.id}}</p>
+            </div>
+            <div>
+            </div>
+            <div>
+
+
+            </div>
+        </a>
+        <div>
+            <a class="botonopcion" [href]="linkPDFApr+revista?.id+'.pdf'" target="_blank">pdf</a>
+        </div>
+        <div>
+            <a class="botonopcion" [href]="LinkIMGApr+revista?.id+'.jpg'" target="_blank">IMG</a>
+        </div>
+        <div>
+            <button (click)="eliminarRevista(revista?.id)" [disabled]="pausebuttom()">Eliminar</button>
+
+        </div>
+    </div>
+    } @empty {
+    <p>cargando...</p>
+    }
+    }
+
+</div>
+
+
+
+
+<div class="cont-rev">
+
+    @if (seccion()=="REVISION") {
+
+    <h2>En Revisión</h2>
+
+    @for (revista of revistasFiltradasporidrev(); track revista.id) {
+    <div class="cont-revistas">
+        <a routerLink="/revista/{{revista?.id}}">
+
+            <div>
+                <p>{{ revista?.titulo }}</p>
+            </div>
+            <div>
+                <p>{{ revista.autor }}</p>
+
+            </div>
+            <div>
+                <p>{{revista?.categoria}}</p>
+            </div>
+            <div>
+                <p>{{revista.universidad}}</p>
+            </div>
+            <div>
+                <p>{{revista?.fecha}}</p>
+
+            </div>
+            <div>
+                <p>{{revista?.id}}</p>
+
+            </div>
+            <div>
+                <p>{{revista?.status}}</p>
+
+            </div>
+        </a>
+        <div>
+            <a class="botonopcion" [href]="linkPDFrevision+revista?.id+'.pdf'" target="_blank">pdf</a>
+        </div>
+        <div>
+            <a class="botonopcion" [href]="LinkIMGrevision+revista?.id+'.jpg'" target="_blank">IMG</a>
+
+        </div>
+        <div>
+
+            <button (click)="APRREVISTA(revista?.id, revista?.user_id)" [disabled]="pausebuttom()">Aprobar</button>
+            <button (click)="RECHAZARREVISTA(revista?.id, revista?.user_id)"
+                [disabled]="pausebuttom()">Rechazar</button>
+        </div>
+    </div>
+    } @empty {
+    <p>No hay revistas en revisión...</p>
+    }
+
+    }
+
+
+</div>
