@@ -39,6 +39,7 @@ export class Envio {
 
     if (this.titulo() && this.autor() && this.categoria() && this.universidad() && this.resumen()) {
 
+
       return true
     }
 
@@ -59,11 +60,25 @@ export class Envio {
 
     try {
 
+      //validaciones
+
       if (!this.camposcompletos()) return alert("Completa los campos")
+
+      if (this.titulo().length > 200 || this.titulo().length < 10) return alert('Titulo inconsistente o muy extenso')
+
+      if (this.autor().length > 200 || this.autor().length < 5) return alert('Autor(es) inconsistentes o muy extenso')
+
+      if (this.universidad().length > 50 || this.universidad().length < 5) return alert('Universidad Invalida')
+
+      if (this.resumen().length > 300 || this.resumen().length < 50) return alert("Resumen inconsistente o muy extenso")
 
       if (!this.filePDF || !this.filePortada) return alert("Sube ambos archivos");
 
+      //validacion de limite de subida desde la base de datos
+
       if (await this.supa.checkUserSubmissionLimit()) return;
+
+      const user_id = await this.supa.getuserID();
 
 
       //se crea el objeto con los datos a enviar
@@ -75,17 +90,35 @@ export class Envio {
         categoria: this.categoria(),
         resumen: this.resumen(),
         fecha: new Date().toISOString(),
-        status: 'APR'
+        user_id: user_id
       };
 
-      // Guardar datos en la tabla 'revistas' y obtener el id generado, no se usa el id pero esta por si acaso
+      // Guardar datos en la tabla 'revistas' y obtener el id generado, se usa para eliminarla en caso de fallar la subida de archivos
 
 
       const { idFinal, nombrepdf, nombreimg } = await this.supa.insertRevista(revistaData);
 
+      try {
+
+        //intenta subir los archivos
+
+        await this.supa.insertIMGandPDF(nombrepdf, nombreimg, this.filePortada, this.filePDF);
+
+        console.log(revistaData.user_id)
+        console.log('Archivo subido con exito')
+
+      } catch (error) {
+
+        //si falla va a eliminar la tabla recien insertada
+
+        await this.supa.eliminarRevista(idFinal)
+        console.log('fallo en la subida de archivos')
+        return
+
+      }
+
       //luego se ejecuta una funcion para subir los archivos
 
-      await this.supa.insertIMGandPDF(nombrepdf, nombreimg, this.filePortada, this.filePDF);
 
 
 

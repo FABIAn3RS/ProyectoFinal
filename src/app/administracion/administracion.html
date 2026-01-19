@@ -1,9 +1,9 @@
-<input type="text" placeholder="Buscar artículo..." [(ngModel)]="idrevista" />
-
+<input type="text" placeholder="Buscar  ..." [(ngModel)]="idrevista" />
 
 
 <button (click)="seccion.set('APROBADAS')" [disabled]="pausebuttom()">Seleccionar Aprobadas</button>
 <button (click)="seccion.set('REVISION')" [disabled]="pausebuttom()">Seleccionar Revisión</button>
+<button (click)="seccion.set('USUARIOS')" [disabled]="pausebuttom()">Seleccionar Usuarios</button>
 <button (click)="ngOnInit()" [disabled]="pausebuttom()">Actualizar</button>
 
 
@@ -26,8 +26,10 @@
                 <td>Fecha</td>
                 <td>ID</td>
                 <td>User_ID</td>
-                <td>Portada</td>
                 <td>Archivo</td>
+                <td>Portada</td>
+                <td>Vista Previa</td>
+                <td></td>
             </tr>
 
             @for (revistas of revistasFiltradasporidapr(); track revistas.id) {
@@ -42,6 +44,8 @@
                 <td>{{revistas?.user_id}}</td>
                 <td> <a [href]="linkPDFApr+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
                 <td> <a [href]="LinkIMGApr+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
+                <td><a [href]="'/revista/'+revistas?.id" target="_blank">Link</a></td>
+
                 <button (click)='eliminarRevista(revistas?.id)' [disabled]="pausebuttom()">Eliminar</button>
             </tr>
 
@@ -81,8 +85,10 @@
                 <td>Fecha</td>
                 <td>ID</td>
                 <td>User_ID</td>
-                <td>Portada</td>
                 <td>Archivo</td>
+                <td>Portada</td>
+                <td>Vista Previa</td>
+                <td></td>
             </tr>
 
             @for (revistas of revistasFiltradasporidrev(); track revistas.id) {
@@ -97,6 +103,7 @@
                 <td>{{revistas?.user_id}}</td>
                 <td> <a [href]="linkPDFrevision+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
                 <td> <a [href]="LinkIMGrevision+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
+                <td><a [href]="'/revista/'+revistas?.id" target="_blank">Link</a></td>
 
                 <button (click)="APRREVISTA(revistas?.id,revistas?.user_id)" [disabled]="pausebuttom()">Aprobar</button>
                 <button (click)="RECHAZARREVISTA(revistas?.id,revistas?.user_id)"
@@ -123,5 +130,73 @@
 
 
 </div>
+
+}
+
+@if (seccion()=='USUARIOS') {
+
+
+
+
+<div class="cont-users">
+
+    <h2>Usuarios</h2>
+
+    <div class="cont-users">
+
+
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Email</td>
+                <td>Universidad</td>
+                <td>Registro</td>
+                <td>Permiso</td>
+                <td></td>
+            </tr>
+
+            @for (usuarios of usuariosfiltradosID(); track usuarios.id) {
+
+            <tr>
+                <td>{{usuarios?.id}}</td>
+                <td>{{usuarios?.nombre_completo }}</td>
+                <td>{{usuarios?.email}}</td>
+                <td>{{usuarios?.universidad}}</td>
+                <td>{{usuarios?.fecha_registro}}</td>
+                <td>@if (usuarios?.upload_permission) {
+                    <p class="texto-verde">Tiene permisos</p>
+                    }@else {
+
+                    <p class="texto-rojo">No Tiene permisos</p>
+                    }
+                </td>
+
+
+                <button (click)="cambiarpermiso(usuarios?.id,usuarios?.upload_permission)">Cambiar permiso</button>
+            </tr>
+
+
+
+
+
+
+            } @empty {
+
+            <p>no hay revistas ....</p>}
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
 
 }

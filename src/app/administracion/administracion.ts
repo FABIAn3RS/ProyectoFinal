@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-administracion',
-  imports: [FormsModule, RouterLink,],
+  imports: [FormsModule,],
   templateUrl: './administracion.html',
   styleUrl: './administracion.css',
 })
@@ -20,6 +20,7 @@ export class Administracion {
 
   tablasaprobadas = signal<Revistaplantilla[]>([])
   tablasenrevisios = signal<Revistaplantilla[]>([])
+  tablausers = signal<any[]>([])
 
   LinkIMGApr = DBacces.suprabaseconteinerimg
   LinkIMGrevision = DBacces.suprabaseconteinerimgrev
@@ -29,20 +30,20 @@ export class Administracion {
 
   pausebuttom = signal<boolean>(false);
 
-  seccion = signal<"APROBADAS" | "REVISION">("REVISION");
+  seccion = signal<"APROBADAS" | "REVISION" | 'USUARIOS'>("REVISION");
 
 
   //filtros de busqueda
 
 
 
-  //POR ID
+  //POR NOMBRE
 
   revistasFiltradasporidapr = computed(() => {
     const termino = this.idrevista().toLowerCase();
 
     return this.tablasaprobadas().filter(r =>
-      r.titulo?.toLowerCase().includes(termino) || r.id?.includes(termino)
+      r.titulo?.toLowerCase().includes(termino) || r.id?.toUpperCase().includes(termino)
     );
 
 
@@ -51,11 +52,20 @@ export class Administracion {
   revistasFiltradasporidrev = computed(() => {
     const termino = this.idrevista().toLowerCase();
     return this.tablasenrevisios().filter(r =>
-      r.titulo?.toLowerCase().includes(termino) || r.id?.includes(termino)
+      r.titulo?.toLowerCase().includes(termino) || r.id?.toUpperCase().includes(termino)
     );
 
   });
 
+
+  usuariosfiltradosID = computed(() => {
+
+    const termino = this.idrevista()
+    const filtrada = this.tablausers().filter(u => u.id.includes(termino))
+
+    return filtrada
+
+  })
 
 
 
@@ -181,6 +191,41 @@ export class Administracion {
   }
 
 
+  async cambiarpermiso(iduser: string | undefined, statusnow: boolean) {
+
+    this, this.pausebuttom.set(true);
+
+    if (!iduser) {
+
+      console.log('no ide de usuario')
+      return
+    }
+
+    try {
+
+      if (statusnow == true) {
+
+        const data = await this.supaservice.actualizarpermisoUsuario(iduser, false)
+
+      } else {
+
+        const data = await this.supaservice.actualizarpermisoUsuario(iduser, true)
+      }
+
+      this.ngOnInit()
+
+    } catch (error) {
+
+
+      console.log('error cambiando el usuario')
+
+    } finally {
+
+      this.pausebuttom.set(false)
+    }
+
+
+  }
 
 
   async ngOnInit(): Promise<void> {
@@ -191,8 +236,14 @@ export class Administracion {
     const datarev = await this.supaservice.getRevistasREV();
     this.tablasenrevisios.set(datarev);
 
+    const datauser = await this.supaservice.getUsers();
+    this.tablausers.set(datauser)
+
+
+
     console.log("REVISTAS APROBADAS: ", data);
     console.log("REVISTAS EN REVISION: ", datarev);
 
   }
 }
+

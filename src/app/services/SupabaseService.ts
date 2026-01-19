@@ -317,6 +317,16 @@ export class SupabaseService {
   }
 
 
+  async getuserID() {
+
+    const { data: { user }, error } = await this.supabase.auth.getUser()
+
+    return user?.id
+
+
+
+  }
+
 
   // !!!!funciones PARA APROBAR REVISTAS USADAS POR EL ADMINISTRADOR DESDE AQUI
 
@@ -420,6 +430,22 @@ export class SupabaseService {
     }
     return "Permiso actualizado correctamente";
   }
+
+
+
+  async getUsers() {
+
+    const { data, error } = await this.supabase.from('perfiles').select('*')
+
+    if (error) throw error
+
+    console.log(data)
+
+    return data
+
+  }
+
+
 
 
 

@@ -138,3 +138,17 @@ h2 {
     border-left: 4px solid #3b82f6;
     padding-left: 12px;
 }
+
+.texto-verde {
+    color: #10b981 !important;
+    /* Un verde esmeralda moderno, similar al de Tailwind */
+    font-weight: 500;
+    /* Opcional: le da un poco más de presencia */
+}
+
+.texto-rojo {
+    color: #ba1616 !important;
+    /* Un verde esmeralda moderno, similar al de Tailwind */
+    font-weight: 500;
+    /* Opcional: le da un poco más de presencia */
+}
