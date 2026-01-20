@@ -32,6 +32,12 @@ export class Administracion {
 
   seccion = signal<"APROBADAS" | "REVISION" | 'USUARIOS'>("REVISION");
 
+  usuarioautomatico(userid: string | undefined, window: 'USUARIOS') {
+
+    this.idrevista.set(userid);
+    this.seccion.set(window)
+  }
+
 
   //filtros de busqueda
 
@@ -230,19 +236,28 @@ export class Administracion {
 
   async ngOnInit(): Promise<void> {
 
-    const data = await this.supaservice.getRevistas();
-    this.tablasaprobadas.set(data);
+    this.pausebuttom.set(true)
 
-    const datarev = await this.supaservice.getRevistasREV();
-    this.tablasenrevisios.set(datarev);
+    try {
 
-    const datauser = await this.supaservice.getUsers();
-    this.tablausers.set(datauser)
+      const data = await this.supaservice.getRevistas();
+      this.tablasaprobadas.set(data);
 
+      const datarev = await this.supaservice.getRevistasREV();
+      this.tablasenrevisios.set(datarev);
 
+      const datauser = await this.supaservice.getUsers();
+      this.tablausers.set(datauser)
 
-    console.log("REVISTAS APROBADAS: ", data);
-    console.log("REVISTAS EN REVISION: ", datarev);
+    } catch (error) {
+
+      console.log('algo fallo al actualizar')
+    } finally {
+
+      this.pausebuttom.set(false)
+
+    }
+
 
   }
 }

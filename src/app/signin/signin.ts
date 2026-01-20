@@ -39,8 +39,8 @@ export class Signin {
 
 
   camposCompletos = computed(() => {
-    return this.nombreCompleto().trim().length > 0 &&
-      this.universidad().trim().length > 0;
+    return this.nombreCompleto().trim().length > 5 &&
+      this.universidad().trim().length > 5;
   });
 
 
@@ -66,6 +66,8 @@ export class Signin {
         );
 
         alert('¡Registro exitoso! Revisa tu email para confirmar tu cuenta.');
+        window.location.reload();
+
       } catch (error: any) {
         alert('Error al registrar: ' + error.message);
       }

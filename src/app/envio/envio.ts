@@ -1,6 +1,7 @@
 import { Component, signal, computed } from '@angular/core';
 import { SupabaseService } from '../services/SupabaseService';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-envio',
@@ -9,6 +10,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './envio.css',
 })
 export class Envio {
+
+
+
 
   categorias = ["", "Ciencia", "Sociales", "Teconologia",
     "Arte", "Salud", "Historia", "Literatura"]
@@ -26,7 +30,7 @@ export class Envio {
 
   loading = signal(false);
 
-  constructor(private supa: SupabaseService) { }
+  constructor(private supa: SupabaseService, private router: Router) { }
 
   // Capturar archivos desde el evento (input)
   onFileSelected(event: any, type: 'pdf' | 'img') {
@@ -70,7 +74,7 @@ export class Envio {
 
       if (this.universidad().length > 50 || this.universidad().length < 5) return alert('Universidad Invalida')
 
-      if (this.resumen().length > 300 || this.resumen().length < 50) return alert("Resumen inconsistente o muy extenso")
+      if (this.resumen().length > 600 || this.resumen().length < 50) return alert("Resumen inconsistente o muy extenso (min 50 max 600 chrc)")
 
       if (!this.filePDF || !this.filePortada) return alert("Sube ambos archivos");
 
@@ -124,7 +128,10 @@ export class Envio {
 
       console.log("Enviando:", this.titulo(), this.filePDF.name, this.filePortada.name, this.autor(),
         this.universidad(), this.categoria(), this.resumen());
+
       alert("¡Artículo enviado con éxito!");
+
+      this.router.navigate(['/']);
 
     } catch (error) {
       console.error("Error al enviar el artículo:", error);

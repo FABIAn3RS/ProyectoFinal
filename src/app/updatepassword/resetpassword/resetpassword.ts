@@ -38,7 +38,6 @@ export class Resetpassword implements OnInit {
     });
   }
 
-  hola() { console.log("hola") }
 
 
   async actualizarPassword() {

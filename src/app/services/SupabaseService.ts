@@ -435,7 +435,7 @@ export class SupabaseService {
 
   async getUsers() {
 
-    const { data, error } = await this.supabase.from('perfiles').select('*')
+    const { data, error } = await this.supabase.from('perfiles').select('*').order('fecha_registro')
 
     if (error) throw error
 

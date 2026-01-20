@@ -6,7 +6,12 @@
 <button (click)="seccion.set('USUARIOS')" [disabled]="pausebuttom()">Seleccionar Usuarios</button>
 <button (click)="ngOnInit()" [disabled]="pausebuttom()">Actualizar</button>
 
-
+@if (pausebuttom()) {
+<div class="overlay-carga">
+    <img src="assets/images/loading-4.gif" alt="Cargando...">
+    <p>Subiendo archivos, por favor espera...</p>
+</div>
+}
 
 @if (seccion()=="APROBADAS") {
 
@@ -41,7 +46,7 @@
                 <td>{{revistas?.categoria}}</td>
                 <td>{{revistas?.fecha}}</td>
                 <td>{{revistas?.id}}</td>
-                <td>{{revistas?.user_id}}</td>
+                <td (click)="usuarioautomatico(revistas?.user_id,'USUARIOS')">{{revistas?.user_id}}</td>
                 <td> <a [href]="linkPDFApr+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
                 <td> <a [href]="LinkIMGApr+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
                 <td><a [href]="'/revista/'+revistas?.id" target="_blank">Link</a></td>
@@ -100,7 +105,7 @@
                 <td>{{revistas?.categoria}}</td>
                 <td>{{revistas?.fecha}}</td>
                 <td>{{revistas?.id}}</td>
-                <td>{{revistas?.user_id}}</td>
+                <td (click)="usuarioautomatico(revistas?.user_id,'USUARIOS')">{{revistas?.user_id}}</td>
                 <td> <a [href]="linkPDFrevision+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
                 <td> <a [href]="LinkIMGrevision+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
                 <td><a [href]="'/revista/'+revistas?.id" target="_blank">Link</a></td>
