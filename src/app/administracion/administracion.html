@@ -31,6 +31,7 @@
                 <td>Fecha</td>
                 <td>ID</td>
                 <td>User_ID</td>
+                <td>Valoracion</td>
                 <td>Archivo</td>
                 <td>Portada</td>
                 <td>Vista Previa</td>
@@ -47,6 +48,7 @@
                 <td>{{revistas?.fecha}}</td>
                 <td>{{revistas?.id}}</td>
                 <td (click)="usuarioautomatico(revistas?.user_id,'USUARIOS')">{{revistas?.user_id}}</td>
+                <td (click)="ventanaIA(revistas?.IA_valoracion)">Resumen</td>
                 <td> <a [href]="linkPDFApr+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
                 <td> <a [href]="LinkIMGApr+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
                 <td><a [href]="'/revista/'+revistas?.id" target="_blank">Link</a></td>
@@ -90,6 +92,7 @@
                 <td>Fecha</td>
                 <td>ID</td>
                 <td>User_ID</td>
+                <td>Valoracion</td>
                 <td>Archivo</td>
                 <td>Portada</td>
                 <td>Vista Previa</td>
@@ -106,6 +109,8 @@
                 <td>{{revistas?.fecha}}</td>
                 <td>{{revistas?.id}}</td>
                 <td (click)="usuarioautomatico(revistas?.user_id,'USUARIOS')">{{revistas?.user_id}}</td>
+                <td (click)="ventanaIA(revistas?.IA_valoracion)">Resumen</td>
+
                 <td> <a [href]="linkPDFrevision+revistas?.id+'.pdf'" target="_blank">PDF</a></td>
                 <td> <a [href]="LinkIMGrevision+revistas?.id+'.jpg'" target="_blank">IMG</a></td>
                 <td><a [href]="'/revista/'+revistas?.id" target="_blank">Link</a></td>

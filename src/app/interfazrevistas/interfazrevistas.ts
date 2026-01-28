@@ -22,6 +22,7 @@ export interface Revistaplantilla {
   resumen: string;
   status: string;
   user_id: string;
+  IA_valoracion: string
 }
 
 

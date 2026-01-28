@@ -218,7 +218,7 @@ export class SupabaseService {
 
     console.log(idFinal, nombrepdf, nombreimg);
 
-    return { idFinal, nombrepdf, nombreimg };
+    return { idFinal, nombrepdf, nombreimg, revistasubida };
 
 
   }

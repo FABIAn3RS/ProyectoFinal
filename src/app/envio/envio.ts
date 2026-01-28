@@ -2,6 +2,8 @@ import { Component, signal, computed } from '@angular/core';
 import { SupabaseService } from '../services/SupabaseService';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-envio',
@@ -30,7 +32,7 @@ export class Envio {
 
   loading = signal(false);
 
-  constructor(private supa: SupabaseService, private router: Router) { }
+  constructor(private supa: SupabaseService, private router: Router, private http: HttpClient) { }
 
   // Capturar archivos desde el evento (input)
   onFileSelected(event: any, type: 'pdf' | 'img') {
@@ -100,7 +102,31 @@ export class Envio {
       // Guardar datos en la tabla 'revistas' y obtener el id generado, se usa para eliminarla en caso de fallar la subida de archivos
 
 
-      const { idFinal, nombrepdf, nombreimg } = await this.supa.insertRevista(revistaData);
+      const { idFinal, nombrepdf, nombreimg, revistasubida } = await this.supa.insertRevista(revistaData);
+
+      //n8n8
+
+      //PARTE DE AUTOMATIZACION CON N8N 
+
+      try {
+        const webhook = "http://localhost:5678/webhook-test/valorar"
+
+        const result = await firstValueFrom(this.http.post(webhook, revistasubida));
+
+        console.log("enviando a n8n:", result)
+
+
+
+      } catch (error) {
+
+        console.log("error en subida a N8N")
+        await this.supa.eliminarRevista(idFinal)
+        return
+      }
+
+
+
+      //PARTE DE SUBIR LOS ARCHIVOS A BUCKETS COMPARTIENDO EL ID DE LA REVISTA COMO NOMBRE
 
       try {
 
@@ -123,15 +149,12 @@ export class Envio {
 
       //luego se ejecuta una funcion para subir los archivos
 
-
-
-
       console.log("Enviando:", this.titulo(), this.filePDF.name, this.filePortada.name, this.autor(),
         this.universidad(), this.categoria(), this.resumen());
 
       alert("¡Artículo enviado con éxito!");
 
-      this.router.navigate(['/']);
+      //this.router.navigate(['/']);
 
     } catch (error) {
       console.error("Error al enviar el artículo:", error);
@@ -144,3 +167,5 @@ export class Envio {
   }
 
 }
+
+

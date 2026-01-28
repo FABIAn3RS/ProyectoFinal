@@ -4,14 +4,19 @@ import { SupabaseService } from '../services/SupabaseService';
 import { FormsModule, NgModel } from '@angular/forms';
 import { DBacces } from '../constantes/DBacces';
 import { RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { VentanaIA } from '../ventana-ia/ventana-ia';
 
 @Component({
   selector: 'app-administracion',
-  imports: [FormsModule,],
+  imports: [FormsModule],
   templateUrl: './administracion.html',
   styleUrl: './administracion.css',
 })
 export class Administracion {
+
+  constructor(private supaservice: SupabaseService, private dialog: MatDialog) { }
+
 
 
   idrevista = signal<any>("");
@@ -36,6 +41,13 @@ export class Administracion {
 
     this.idrevista.set(userid);
     this.seccion.set(window)
+  }
+
+  ventanaIA(resumen: string | undefined) {
+    this.dialog.open(VentanaIA, {
+      width: '400px',
+      data: { texto: resumen } // 'texto' es la llave que usaremos luego
+    });
   }
 
 
@@ -76,7 +88,6 @@ export class Administracion {
 
 
 
-  constructor(private supaservice: SupabaseService,) { }
 
 
 
@@ -248,6 +259,8 @@ export class Administracion {
 
       const datauser = await this.supaservice.getUsers();
       this.tablausers.set(datauser)
+
+      console.log(data, datarev, datauser)
 
     } catch (error) {
 
