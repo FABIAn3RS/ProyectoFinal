@@ -109,7 +109,7 @@ export class Envio {
       //PARTE DE AUTOMATIZACION CON N8N 
 
       try {
-        const webhook = "http://localhost:5678/webhook-test/valorar"
+        const webhook = "http://localhost:5678/webhook/valorar"
 
         const result = await firstValueFrom(this.http.post(webhook, revistasubida));
 
