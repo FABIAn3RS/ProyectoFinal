@@ -27,4 +27,5 @@ jobs:
             -Dsonar.organization=fabian3rs
             -Dsonar.sources=src
             -Dsonar.scm.provider=git
+            -Dsonar.coverage.exclusions=**/*.ts
           projectBaseDir: .
