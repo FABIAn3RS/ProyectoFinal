@@ -15,6 +15,8 @@ import { DBacces } from '../constantes/DBacces';
 
 
 
+
+
 export class Buscador {
 
   //Claves de acceso e incializacion de los atributos para guardar los datos
@@ -112,5 +114,18 @@ export class Buscador {
     this.revistas.set(allelemnts)
 
 
+  }
+}
+
+
+
+
+// bug: variable declarada y nunca usada
+export class AppComponent {
+  password = "admin123";  // hardcoded credential → falla Security
+  
+  calcular() {
+    let resultado;  // variable declarada pero nunca usada → bug
+    return null;
   }
 }
