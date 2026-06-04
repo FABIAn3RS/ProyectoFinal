@@ -1,0 +1,50 @@
+name: Deploy Angular a Cloud Run
+
+on:
+  push:
+    branches:
+      - main        # se ejecuta solo cuando haces push a main
+
+env:
+  PROJECT_ID: tu-project-id        # ← tu ID de proyecto GCP
+  SERVICE_NAME: mi-app             # ← nombre de tu app
+  REGION: us-central1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar el código
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      # 2. Autenticarse con GCP
+      - name: Autenticar con Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # 3. Configurar Docker para subir a GCP
+      - name: Configurar Docker
+        run: gcloud auth configure-docker
+
+      # 4. Construir imagen Docker
+      - name: Build imagen
+        run: |
+          docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA .
+
+      # 5. Subir imagen a Container Registry
+      - name: Push imagen
+        run: |
+          docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
+
+      # 6. Desplegar en Cloud Run
+      - name: Deploy en Cloud Run
+        run: |
+          gcloud run deploy $SERVICE_NAME \
+            --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
+            --region $REGION \
+            --platform managed \
+            --allow-unauthenticated \
+            --port 80
