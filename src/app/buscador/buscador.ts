@@ -119,13 +119,3 @@ export class Buscador {
 
 
 
-
-// bug: variable declarada y nunca usada
-export class AppComponent {
-  password = "admin123";  // hardcoded credential → falla Security
-  
-  calcular() {
-    let resultado;  // variable declarada pero nunca usada → bug
-    return null;
-  }
-}

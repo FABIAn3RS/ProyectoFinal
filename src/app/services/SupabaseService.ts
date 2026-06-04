@@ -3,7 +3,6 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { DBacces } from '../constantes/DBacces';
-import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root'
